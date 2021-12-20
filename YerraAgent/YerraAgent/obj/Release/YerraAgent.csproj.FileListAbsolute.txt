@@ -8,7 +8,6 @@ D:\Work\C#\YerraAgent\YerraAgent\obj\Release\YerraAgent.pdb
 D:\Work\C#\YerraAgent\YerraAgent\obj\Release\YerraAgent.csproj.AssemblyReference.cache
 D:\Work\C#\YerraAgent\YerraAgent\bin\Release\Newtonsoft.Json.xml
 D:\Work\C#\YerraAgent\YerraAgent\obj\Release\YerraAgent.csproj.Fody.CopyLocal.cache
-D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\obj\Release\YerraAgent.csproj.AssemblyReference.cache
 D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\obj\Release\YerraAgent.csproj.CoreCompileInputs.cache
 D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\obj\Release\YerraAgent.exe
 D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\obj\Release\YerraAgent.pdb
@@ -21,3 +20,4 @@ D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\bin\Release\System.Net.Http.
 D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\bin\Release\System.Net.Http.Primitives.dll
 D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\bin\Release\Newtonsoft.Json.xml
 D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\obj\Release\YerraAgent.csproj.CopyComplete
+D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\obj\Release\YerraAgent.csproj.AssemblyReference.cache

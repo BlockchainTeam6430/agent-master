@@ -15,6 +15,7 @@ namespace ServiceYerra
         }
 
         //private Timer aTimer;
+        static string baseDir = @"C:/yerra";
 
         protected override void OnStart(string[] args)
         {
@@ -47,13 +48,18 @@ namespace ServiceYerra
 
         protected void logger(string log)
         {
-            string path = @"C:/yerra/log.txt";
+            string path = $"{baseDir}/log.txt";
             if (!File.Exists(path))
             {
+                if (!Directory.Exists(baseDir))
+                {
+                    Directory.CreateDirectory(baseDir);
+                }
                 using (StreamWriter sw = File.CreateText(path))
                 {
                     sw.WriteLine(log);
                 }
+                return;
             }
             using (StreamWriter sw = File.AppendText(path))
             {
@@ -65,7 +71,7 @@ namespace ServiceYerra
         {
             try
             {
-                ProcessExtensions.StartProcessAsCurrentUser(@"C:\yerra\YerraAgentApp.exe", null, null, false);
+                ProcessExtensions.StartProcessAsCurrentUser($"{baseDir}/YerraAgent.exe", null, null, false);
             }
             catch (Exception e)
             {

@@ -231,8 +231,13 @@ namespace YerraAgent
                         ).FirstOrDefault();
                 Guid guid = Guid.NewGuid();
 
-                this.user.Id = $"{this.user.CompanyName}-{guid.ToString()}";
-                this.user.UniqueId = $"{this.user.CompanyName}-{this.user.MachineID}";
+                string[] splitedIds = {"", "", "" };
+                for(int i = 0; i<this.user.MachineID.Length; i++)
+                {
+                    splitedIds[i/4] += this.user.MachineID[i];
+                    
+                }
+                this.user.Id = $"{this.user.CompanyName}-{splitedIds[0]}-{splitedIds[1]}-{splitedIds[2]}";
 
                 var res = await _client.PostAsJsonAsync("api/agent", this.user);
                 res.EnsureSuccessStatusCode();
@@ -269,7 +274,6 @@ namespace YerraAgent
         public long CompanyId { get; set; }
         public string CompanyName { get; set; }
         public string Domain { get; set; }
-        public string UniqueId { get; set; }
         public int Status { get; set; }
 
         public ICollection<ProcessInfo> ProcesseInfos { get; set; }

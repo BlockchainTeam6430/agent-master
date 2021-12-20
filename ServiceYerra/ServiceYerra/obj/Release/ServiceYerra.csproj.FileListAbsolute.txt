@@ -10,3 +10,9 @@ D:\Work\C#\ServiceYerra\ServiceYerra\obj\Release\ServiceYerra.pdb
 D:\Work\C#\ServiceYerra\ServiceYerra\obj\Release\ServiceYerra.csproj.AssemblyReference.cache
 D:\Work\C#\ServiceYerra\ServiceYerra\bin\Release\System.Diagnostics.DiagnosticSource.xml
 D:\Work\C#\ServiceYerra\ServiceYerra\obj\Release\ServiceYerra.csproj.Fody.CopyLocal.cache
+D:\Work\C#\Yerra\agent-master\ServiceYerra\ServiceYerra\obj\Release\ServiceYerra.csproj.AssemblyReference.cache
+D:\Work\C#\Yerra\agent-master\ServiceYerra\ServiceYerra\obj\Release\ServiceYerra.ProjectInstaller.resources
+D:\Work\C#\Yerra\agent-master\ServiceYerra\ServiceYerra\obj\Release\ServiceYerra.csproj.GenerateResource.cache
+D:\Work\C#\Yerra\agent-master\ServiceYerra\ServiceYerra\obj\Release\ServiceYerra.csproj.CoreCompileInputs.cache
+D:\Work\C#\Yerra\agent-master\ServiceYerra\ServiceYerra\obj\Release\ServiceYerra.exe
+D:\Work\C#\Yerra\agent-master\ServiceYerra\ServiceYerra\obj\Release\ServiceYerra.pdb
