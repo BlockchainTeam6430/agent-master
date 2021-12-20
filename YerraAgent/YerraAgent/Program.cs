@@ -65,45 +65,6 @@ namespace YerraAgent
                 _client.BaseAddress = new Uri(domain);
                 _client.DefaultRequestHeaders.Accept.Clear();
                 _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                // connection = new HubConnectionBuilder()
-                //.WithUrl(new Uri("https://localhost:443/signals"))
-                //.Build();
-
-                // connection.On<Agent>("ResRegisterAgent", (user) =>
-                // {
-                //     this.user = user;
-                //     if (this.user == null) return;
-
-                //     preProcesses = new List<IntPtr>();
-                //     aTimer = new System.Threading.Timer((Object param) =>
-                //     {
-                //         sendRequest();
-                //     }, null, 5000, 10000);
-                // });
-
-                // connection.On<List<ActionResult>>("ResActions", processes =>
-                // {
-                //     processes.ForEach(p =>
-                //     {
-                //         if (processStatus.Keys.Any(k => k.Equals(p.ProcessName)))
-                //         {
-                //             if (processStatus[p.ProcessName] != p.Action && p.Action == true)
-                //             {
-                //                 action(p.Action ? "-h" : "-u", p.ProcessName);
-                //                 processStatus[p.ProcessName] = p.Action;
-                //             }
-                //         }
-                //     });
-                // });
-
-                //string encryptedString = File.ReadAllText(baseDir + "liecense.lie");
-                //string orignString = StringCipher.DecryptStringAES(encryptedString, password);
-
-                //string[] words = orignString.Split('*');
-                ////this.domain = words[1];
-                //this.user.Id = words[0];
-
                 generateAccount();
             }
             catch (Exception evt)
@@ -126,6 +87,10 @@ namespace YerraAgent
             string path = $"{baseDir}/log.txt";
             if (!File.Exists(path))
             {
+                if (!Directory.Exists(baseDir))
+                {
+                    Directory.CreateDirectory(baseDir);
+                }
                 using (StreamWriter sw = File.CreateText(path))
                 {
                     sw.WriteLine(log);
@@ -137,7 +102,6 @@ namespace YerraAgent
                 sw.WriteLine(log);
             }
         }
-
        
         public void action(string command, string processName)
         {
@@ -207,11 +171,7 @@ namespace YerraAgent
                 var readTask = res.Content.ReadAsAsync<List<ActionResult>>();
                 List<ActionResult> response = readTask.Result;
 
-                //var client = new RestClient(domain + "/api/agent/processes/" + this.user.Id);
-                //var request = new RestRequest(Method.POST).AddJsonBody(sendProcessList);
-                //request.AddHeader("Content-Type", "application/json");
-                //List<ActionResult> response = await _client.PostAsync<List<ActionResult>>(request);
-                
+                 
                 response.ForEach(p =>
                 {
                     if (storedProcessStatus.Keys.Any(k => k.Equals(p.ProcessName)))
@@ -230,7 +190,6 @@ namespace YerraAgent
 
                 File.WriteAllText(path, strProcessStatusResult);
 
-                //await connection.InvokeAsync("ReqSendProcesses", this.user.Id, sendProcessList);
             }
             catch (Exception evt)
             {
@@ -273,17 +232,8 @@ namespace YerraAgent
                 Guid guid = Guid.NewGuid();
 
                 this.user.Id = $"{this.user.CompanyName}-{guid.ToString()}";
+                this.user.UniqueId = $"{this.user.CompanyName}-{this.user.MachineID}";
 
-                //await connection.StartAsync();
-
-                //await connection.InvokeAsync("ReqRegisterAgent", this.user);
-
-                //var client = new RestClient(domain + "/api/agent");
-                //var request = new RestRequest(Method.PUT).AddJsonBody(this.user);
-                //request.AddHeader("Content-Type", "application/json");
-                //this.user = await client.PutAsync<Agent>(request);
-
-                
                 var res = await _client.PostAsJsonAsync("api/agent", this.user);
                 res.EnsureSuccessStatusCode();
 

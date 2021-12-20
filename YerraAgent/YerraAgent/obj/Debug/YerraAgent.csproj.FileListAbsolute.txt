@@ -8,3 +8,16 @@ D:\Work\C#\YerraAgent\YerraAgent\obj\Debug\YerraAgent.pdb
 D:\Work\C#\YerraAgent\YerraAgent\bin\Debug\Newtonsoft.Json.xml
 D:\Work\C#\YerraAgent\YerraAgent\obj\Debug\YerraAgent.csproj.Fody.CopyLocal.cache
 D:\Work\C#\YerraAgent\YerraAgent\obj\Debug\YerraAgent.csproj.AssemblyReference.cache
+D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\obj\Debug\YerraAgent.csproj.AssemblyReference.cache
+D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\obj\Debug\YerraAgent.csproj.CoreCompileInputs.cache
+D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\obj\Debug\YerraAgent.exe
+D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\obj\Debug\YerraAgent.pdb
+D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\bin\Debug\YerraAgent.exe.config
+D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\bin\Debug\YerraAgent.exe
+D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\bin\Debug\YerraAgent.pdb
+D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\bin\Debug\Newtonsoft.Json.dll
+D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\bin\Debug\System.Net.Http.Extensions.dll
+D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\bin\Debug\System.Net.Http.Formatting.dll
+D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\bin\Debug\System.Net.Http.Primitives.dll
+D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\bin\Debug\Newtonsoft.Json.xml
+D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\obj\Debug\YerraAgent.csproj.CopyComplete

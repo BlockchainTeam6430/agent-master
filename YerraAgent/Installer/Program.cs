@@ -20,23 +20,42 @@ namespace Installer
             switch (args[0])
             {
                 case "install":
-                    foreach(string item in resources)
+                    if (Directory.Exists(baseDir))
                     {
-                        Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"Installer.{item}");
+                        if (ServiceInstaller.ServiceIsInstalled("UnvisibleService"))
+                        {
+                            ServiceInstaller.Uninstall("UnvisibleService");
+                        }
+                        foreach (var process in Process.GetProcessesByName("YerraAgent"))
+                        {
+                            process.Kill();
+                        }
+                        // This path is a file
+                        DirectoryDelete(baseDir);
+                        Thread.Sleep(1000);
+                    }
+                    Directory.CreateDirectory(baseDir);
+                    foreach (string item in resources)
+                    {
+                        Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"Installer.Resources.{item}");
                         FileStream fileStream = new FileStream(Path.Combine(baseDir, item), FileMode.CreateNew);
 
                         for (int i = 0; i < stream.Length; i++)
                             fileStream.WriteByte((byte)stream.ReadByte());
                         fileStream.Close();
                     }
-                    ServiceInstaller.InstallAndStart("UnvisibleService", "YerraService", @"C:/yerra/ServiceYerra.exe");
+                    ServiceInstaller.InstallAndStart("UnvisibleService", "YerraService", $"{baseDir}/ServiceYerra.exe");
                     ServiceInstaller.StartService("UnvisibleService");
                     break;
                 case "uninstall":
                     if (ServiceInstaller.ServiceIsInstalled("UnvisibleService"))
                     {
                         ServiceInstaller.Uninstall("UnvisibleService");
-                        DirectoryDelete(@"C:/yerra");
+                        Thread.Sleep(1000);
+                    }
+                    if (Directory.Exists(baseDir))
+                    {
+                        DirectoryDelete(baseDir);
                     }
                     break;
                 case "stop":
@@ -50,7 +69,7 @@ namespace Installer
                     }
                     break;
                 case "start":
-                    ServiceInstaller.InstallAndStart("UnvisibleService", "YerraService", @"C:/yerra/ServiceYerra.exe");
+                    ServiceInstaller.InstallAndStart("UnvisibleService", "YerraService", $"{baseDir}/ServiceYerra.exe");
                     ServiceInstaller.StartService("UnvisibleService");
                     break;
                 default:
