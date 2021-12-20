@@ -1,0 +1,6 @@
+D:\Work\C#\YerraAgent\Installer\bin\Release\Installer.exe.config
+D:\Work\C#\YerraAgent\Installer\bin\Release\Installer.exe
+D:\Work\C#\YerraAgent\Installer\bin\Release\Installer.pdb
+D:\Work\C#\YerraAgent\Installer\obj\Release\Installer.csproj.CoreCompileInputs.cache
+D:\Work\C#\YerraAgent\Installer\obj\Release\Installer.exe
+D:\Work\C#\YerraAgent\Installer\obj\Release\Installer.pdb

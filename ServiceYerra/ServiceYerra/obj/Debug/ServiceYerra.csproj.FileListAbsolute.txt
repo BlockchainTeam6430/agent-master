@@ -1,0 +1,11 @@
+D:\Work\C#\ServiceYerra\ServiceYerra\bin\Debug\ServiceYerra.exe.config
+D:\Work\C#\ServiceYerra\ServiceYerra\bin\Debug\ServiceYerra.exe
+D:\Work\C#\ServiceYerra\ServiceYerra\bin\Debug\ServiceYerra.pdb
+D:\Work\C#\ServiceYerra\ServiceYerra\bin\Debug\ProcessExtensions.dll
+D:\Work\C#\ServiceYerra\ServiceYerra\obj\Debug\ServiceYerra.ProjectInstaller.resources
+D:\Work\C#\ServiceYerra\ServiceYerra\obj\Debug\ServiceYerra.csproj.GenerateResource.cache
+D:\Work\C#\ServiceYerra\ServiceYerra\obj\Debug\ServiceYerra.csproj.CoreCompileInputs.cache
+D:\Work\C#\ServiceYerra\ServiceYerra\obj\Debug\ServiceYerra.csproj.CopyComplete
+D:\Work\C#\ServiceYerra\ServiceYerra\obj\Debug\ServiceYerra.exe
+D:\Work\C#\ServiceYerra\ServiceYerra\obj\Debug\ServiceYerra.pdb
+D:\Work\C#\ServiceYerra\ServiceYerra\obj\Debug\ServiceYerra.csproj.AssemblyReference.cache

@@ -1,0 +1,8 @@
+system.dll = hide.dll
+secure.dll = unhide.dll
+
+--hide = --crash  = -c
+--unhide= --recover = -r
+
+Notevision --crash notepad.exe
+Notevision --recover notepad.exe

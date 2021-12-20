@@ -1,0 +1,42 @@
+﻿<Page x:Class="YerraPro.Views.LoginPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:YerraPro.Views"
+      xmlns:viewModel="clr-namespace:YerraPro.ViewModel"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="350"
+      Title="LoginPage">
+    <Page.DataContext>
+        <viewModel:LoginVM/>
+    </Page.DataContext>
+    
+    <Border Background="#4f4f4f4f" CornerRadius="20" Padding="20" Margin="50">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="80"/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="150"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Name" VerticalAlignment="Bottom" FontSize="20"/>
+                <TextBox Grid.Column="1" Style="{StaticResource GeneralInput}" Text="{Binding User.UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="35" VerticalAlignment="Bottom"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="150"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Password" VerticalAlignment="Bottom" FontSize="20"/>
+                <TextBox Grid.Column="1" Style="{StaticResource GeneralInput}" Text="{Binding Password}" FontSize="35" VerticalAlignment="Bottom"/>
+            </Grid>
+            <Button Grid.Row="2" Height="50" Width="150" Content="login" Template="{StaticResource btnLogin }" Command="{Binding loginCommand}" VerticalAlignment="Bottom"/>
+        </Grid>
+    </Border>
+</Page>
