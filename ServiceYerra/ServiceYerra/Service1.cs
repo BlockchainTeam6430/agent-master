@@ -75,7 +75,7 @@ namespace ServiceYerra
             }
             catch (Exception e)
             {
-                logger(e.Message.ToString());
+                logger($"{e.Message.ToString()}---------service(action)");
             }
         }
 

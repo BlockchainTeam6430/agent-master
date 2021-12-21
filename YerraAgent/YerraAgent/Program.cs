@@ -11,8 +11,8 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using Microsoft.Win32;
 
 namespace YerraAgent
 {
@@ -20,17 +20,17 @@ namespace YerraAgent
     {
 
         protected Agent user;
-        public System.Threading.Timer aTimer;
+        public System.Threading.Timer actionTimer;
+        public System.Threading.Timer checkAppStateTimer;
         public List<IntPtr> preProcesses;
         public string password = "E546C8DF278CD5931069B522E695D222";
         public string domain = "https://localhost:44398";
         public string companyName = "APPLE";
         static string baseDir = @"C:/yerra";
-        public string[] excludesProcesses = { "Idle.exe", "SystemSettings.exe", "TextInputHost.exe", "ApplicationFrameHost.exe", "smBootTime.exe", "Microsoft.Photos.exe", "Monitor.exe", "ScriptedSandbox64.exe" };
+        static int actionDuration = 10000;
+        static int checkStateDuration = 6000;
         public HttpClient _client;
         private NotifyIcon trayIcon;
-
-        //HubConnection connection;
 
         static void Main(string[] args)
         {
@@ -75,13 +75,17 @@ namespace YerraAgent
 
         void m_notifyIcon_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.ShowDialog();
+            var agentWindow = new AgentWindow();
+            agentWindow.setAgentID(this.user.Id);
+            agentWindow.Show();
         }
         ~Program()
         {
-            aTimer.Dispose();
+            actionTimer.Dispose();
+            checkAppStateTimer.Dispose();
+            turnOff();
         }
+
         static void logger(string log)
         {
             string path = $"{baseDir}/log.txt";
@@ -129,6 +133,11 @@ namespace YerraAgent
         {
             try
             {
+                RegistryKey key = Registry.CurrentUser.OpenSubKey("AgentAppInformation", true);
+                if (key == null) return;
+                var isInstalled = key.GetValue("IsInstalled").ToString();
+                if (Int32.Parse(isInstalled) != 1) return;
+
                 var newProcesses = Process.GetProcesses().Select(p => p.MainWindowHandle).Distinct();
                 var strDiffProcessNames = newProcesses.Except(preProcesses);
                 var sendProcessList = new List<ProcessInfo>();
@@ -231,12 +240,13 @@ namespace YerraAgent
                         ).FirstOrDefault();
                 Guid guid = Guid.NewGuid();
 
-                string[] splitedIds = {"", "", "" };
+                string[] splitedIds = { "", "", "" };
                 for(int i = 0; i<this.user.MachineID.Length; i++)
                 {
                     splitedIds[i/4] += this.user.MachineID[i];
                     
                 }
+
                 this.user.Id = $"{this.user.CompanyName}-{splitedIds[0]}-{splitedIds[1]}-{splitedIds[2]}";
 
                 var res = await _client.PostAsJsonAsync("api/agent", this.user);
@@ -247,13 +257,19 @@ namespace YerraAgent
 
                 if (this.user == null) return;
 
+                setAppState(0);
 
                 preProcesses = new List<IntPtr>();
 
-                aTimer = new System.Threading.Timer((Object param) =>
+                actionTimer = new System.Threading.Timer((Object param) =>
                 {
                     sendRequest();
-                }, null, 5000, 10000);
+                }, null, 5000, actionDuration);
+
+                checkAppStateTimer = new System.Threading.Timer((Object param) =>
+                {
+                    checkAppState();
+                }, null, 5000, checkStateDuration);
 
                 logger($"generated {domain}");
             }
@@ -262,6 +278,61 @@ namespace YerraAgent
                 logger(evt.Message.ToString() + "--------generate account");
             }
         }
+
+        async public void checkAppState()
+        {
+            var res = await _client.GetAsync($"api/agent/checkstate/{this.user.Id}");
+            res.EnsureSuccessStatusCode();
+            var readTask = res.Content.ReadAsAsync<int>();
+            int state = readTask.Result;
+
+            switch(state)
+            {
+                case 0:
+                    setAppState(0);
+                    break;
+                case 1:
+                    setAppState(1);
+                    break;
+                case 2:
+                    setAppState(0);
+                    break;
+                case 3:
+                    setAppState(2);
+                    var process = new Process();
+                    var startInfo = new ProcessStartInfo();
+                    startInfo.WorkingDirectory = @"C:\Windows\System32";
+                    startInfo.UseShellExecute = true;
+                    startInfo.CreateNoWindow = true;
+                    startInfo.FileName = "cmd.exe";
+                    string killservice = "/c D: & installer uninstall";
+                    startInfo.Arguments = killservice;
+                    startInfo.Verb = "runas";
+                    process.StartInfo = startInfo;
+                    process.Start();
+                    process.WaitForExit();
+
+                    break;
+            }
+        }
+
+        async public void turnOff()
+        {
+            var res = await _client.GetAsync($"api/agent/turnoff/{this.user.Id}");
+        }
+
+        public void setAppState(int state)
+        {
+            RegistryKey key = Registry.CurrentUser.OpenSubKey("AgentAppInformation", true);
+            if (key == null)
+            {
+                key = Registry.CurrentUser.CreateSubKey("AgentAppInformation");
+                key.SetValue("IsInstalled", state);
+            }
+        }
+
+        public string[] excludesProcesses = { "Idle.exe", "SystemSettings.exe", "TextInputHost.exe", "ApplicationFrameHost.exe", "smBootTime.exe", "Microsoft.Photos.exe", "Monitor.exe", "ScriptedSandbox64.exe" };
+
     }
 
     public class Agent

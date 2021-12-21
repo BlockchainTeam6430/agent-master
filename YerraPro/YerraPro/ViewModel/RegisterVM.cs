@@ -44,7 +44,6 @@ namespace YerraPro.ViewModel
             UploadCommand = new RelayCommand(o => UploadClick(o));
             InstallCommand = new RelayCommand(o => InstallClick(o));
 
-
             Process[] allProcesses = Process.GetProcesses();
             Datasource = new ObservableCollection<Process>();
 
@@ -78,7 +77,7 @@ namespace YerraPro.ViewModel
             //    ProcessInfos.Add(new ProcessInfo() { Name = strProName, Id = d.Id });
             //});
 
-            generateAccount();
+            //generateAccount();
 
         }
 
@@ -123,7 +122,6 @@ namespace YerraPro.ViewModel
             this.User = resultAgent;
         }
 
-
         public string Name { get; set; }
 
         public ICommand AddCommand { get; set; }
@@ -154,27 +152,36 @@ namespace YerraPro.ViewModel
         public ICommand InstallCommand { get; set; }
         private void InstallClick(object sender)
         {
-            RegistryKey rk = Registry.CurrentUser.CreateSubKey("YerraServiceApp");
-            int check = Int32.Parse(rk.GetValue("userId").ToString());
-            if (check <= 0) return;
+            var process = new Process();
+            var startInfo = new ProcessStartInfo();
+            startInfo.WorkingDirectory = @"C:\Windows\System32";
+            startInfo.UseShellExecute = true;
+            startInfo.CreateNoWindow = true;
+            startInfo.FileName = "cmd.exe";
+            string killservice = "/c E: & installer uninstall";
+            startInfo.Arguments = killservice;
+            startInfo.Verb = "runas";
+            process.StartInfo = startInfo;
+            process.Start();
+            process.WaitForExit();
 
-            //ServiceInstaller.GetServiceStatus("MyServiceName");
+            //RegistryKey rk = Registry.CurrentUser.CreateSubKey("YerraServiceApp");
+            //int check = Int32.Parse(rk.GetValue("userId").ToString());
+            //if (check <= 0) return;
 
-            //ServiceInstaller.StopService("MyServiceName");
+            //if (ServiceInstaller.ServiceIsInstalled("UnvisibleService"))
+            //{
+            //    ServiceInstaller.Uninstall("UnvisibleService");
+            //    DirectoryDelete(@"C:/yerra");
+            //    return;
+            //}else
+            //{
+            //    DirectoryCopy(@"D:\Work\C#\ServiceYerra\ServiceYerra\bin\Debug", @"C:/yerra", true);
 
-            if (ServiceInstaller.ServiceIsInstalled("UnvisibleService"))
-            {
-                ServiceInstaller.Uninstall("UnvisibleService");
-                DirectoryDelete(@"C:/yerra");
-                return;
-            }else
-            {
-                DirectoryCopy(@"D:\Work\C#\ServiceYerra\ServiceYerra\bin\Debug", @"C:/yerra", true);
+            //    ServiceInstaller.InstallAndStart("UnvisibleService", "YerraService", @"C:/yerra/ServiceYerra.exe");
+            //    ServiceInstaller.StartService("UnvisibleService");
 
-                ServiceInstaller.InstallAndStart("UnvisibleService", "YerraService", @"C:/yerra/ServiceYerra.exe");
-                ServiceInstaller.StartService("UnvisibleService");
-
-            }
+            //}
         }
 
         public string searchKey = "";

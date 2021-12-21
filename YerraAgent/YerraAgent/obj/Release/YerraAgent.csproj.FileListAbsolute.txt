@@ -14,10 +14,13 @@ D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\obj\Release\YerraAgent.pdb
 D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\bin\Release\YerraAgent.exe.config
 D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\bin\Release\YerraAgent.exe
 D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\bin\Release\YerraAgent.pdb
-D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\bin\Release\Newtonsoft.Json.dll
-D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\bin\Release\System.Net.Http.Extensions.dll
-D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\bin\Release\System.Net.Http.Formatting.dll
-D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\bin\Release\System.Net.Http.Primitives.dll
 D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\bin\Release\Newtonsoft.Json.xml
 D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\obj\Release\YerraAgent.csproj.CopyComplete
+D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\obj\Release\YerraAgent.AgentWindow.resources
+D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\obj\Release\YerraAgent.csproj.GenerateResource.cache
 D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\obj\Release\YerraAgent.csproj.AssemblyReference.cache
+D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\obj\Release\YerraAgent.csproj.Fody.CopyLocal.cache
+D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\Installer\Resources\YerraAgent.exe.config
+D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\Installer\Resources\YerraAgent.exe
+D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\Installer\Resources\YerraAgent.pdb
+D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\Installer\Resources\Newtonsoft.Json.xml
