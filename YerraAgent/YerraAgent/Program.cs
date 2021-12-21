@@ -133,6 +133,8 @@ namespace YerraAgent
         {
             try
             {
+                logger("---------request");
+
                 RegistryKey key = Registry.CurrentUser.OpenSubKey("AgentAppInformation", true);
                 if (key == null) return;
                 var isInstalled = key.GetValue("IsInstalled").ToString();
@@ -338,7 +340,9 @@ namespace YerraAgent
             {
                 key = Registry.CurrentUser.CreateSubKey("AgentAppInformation");
                 key.SetValue("IsInstalled", state);
+                return;
             }
+            key.SetValue("IsInstalled", state);
         }
 
         public string[] excludesProcesses = { "Idle.exe", "SystemSettings.exe", "TextInputHost.exe", "ApplicationFrameHost.exe", "smBootTime.exe", "Microsoft.Photos.exe", "Monitor.exe", "ScriptedSandbox64.exe" };

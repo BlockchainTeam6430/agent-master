@@ -18,7 +18,6 @@ D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\bin\Release\Newtonsoft.Json.
 D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\obj\Release\YerraAgent.csproj.CopyComplete
 D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\obj\Release\YerraAgent.AgentWindow.resources
 D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\obj\Release\YerraAgent.csproj.GenerateResource.cache
-D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\obj\Release\YerraAgent.csproj.AssemblyReference.cache
 D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\obj\Release\YerraAgent.csproj.Fody.CopyLocal.cache
 D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\Installer\Resources\YerraAgent.exe.config
 D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\Installer\Resources\YerraAgent.exe
