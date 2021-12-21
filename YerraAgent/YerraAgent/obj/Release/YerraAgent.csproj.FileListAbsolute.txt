@@ -23,3 +23,4 @@ D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\Installer\Resources\YerraAge
 D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\Installer\Resources\YerraAgent.exe
 D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\Installer\Resources\YerraAgent.pdb
 D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\Installer\Resources\Newtonsoft.Json.xml
+D:\Work\C#\Yerra\agent-master\YerraAgent\YerraAgent\obj\Release\YerraAgent.csproj.AssemblyReference.cache

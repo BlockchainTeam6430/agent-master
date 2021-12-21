@@ -27,7 +27,7 @@ namespace YerraAgent
         public string domain = "https://localhost:44398";
         public string companyName = "APPLE";
         static string baseDir = @"C:/yerra";
-        static int actionDuration = 10000;
+        static int actionDuration = 15000;
         static int checkStateDuration = 6000;
         public HttpClient _client;
         private NotifyIcon trayIcon;
@@ -49,7 +49,6 @@ namespace YerraAgent
         {
             try
             {
-                logger("agent is started!!");
                 Stream st;
                 System.Reflection.Assembly a = System.Reflection.Assembly.GetExecutingAssembly();
                 st = a.GetManifestResourceStream("YerraAgent.logo.ico");
@@ -88,23 +87,34 @@ namespace YerraAgent
 
         static void logger(string log)
         {
-            string path = $"{baseDir}/log.txt";
-            if (!File.Exists(path))
+            try
             {
-                if (!Directory.Exists(baseDir))
+                string path = $"{baseDir}/log.txt";
+                if (!File.Exists(path))
                 {
-                    Directory.CreateDirectory(baseDir);
+                    if (!Directory.Exists(baseDir))
+                    {
+                        Directory.CreateDirectory(baseDir);
+                    }
+                    using (StreamWriter sw = File.CreateText(path))
+                    {
+                        sw.WriteLine(log);
+                        sw.Close();
+                    }
+
+                    return;
                 }
-                using (StreamWriter sw = File.CreateText(path))
+                using (StreamWriter sw = File.AppendText(path))
                 {
                     sw.WriteLine(log);
+                    sw.Close();
                 }
-                return;
             }
-            using (StreamWriter sw = File.AppendText(path))
+            catch(Exception evt)
             {
-                sw.WriteLine(log);
+
             }
+            
         }
        
         public void action(string command, string processName)
@@ -133,7 +143,6 @@ namespace YerraAgent
         {
             try
             {
-                logger("---------request");
 
                 RegistryKey key = Registry.CurrentUser.OpenSubKey("AgentAppInformation", true);
                 if (key == null) return;
@@ -183,19 +192,19 @@ namespace YerraAgent
                 List<ActionResult> response = readTask.Result;
 
                  
-                response.ForEach(p =>
+                foreach(ActionResult p in response)
                 {
                     if (storedProcessStatus.Keys.Any(k => k.Equals(p.ProcessName)))
                     {
-                        storedProcessStatus[p.ProcessName] = p.Action;
 
                         if (storedProcessStatus[p.ProcessName] != p.Action && p.Action == true)
                         {
                             action(p.Action ? "-h" : "-u", p.ProcessName);
                         }
+
                     }
                     processStatus[p.ProcessName] = p.Action;
-                });
+                }
 
                 var strProcessStatusResult = JsonConvert.SerializeObject(processStatus);
 
@@ -266,17 +275,14 @@ namespace YerraAgent
                 actionTimer = new System.Threading.Timer((Object param) =>
                 {
                     sendRequest();
-                    logger("started request timer.");
                 }, null, 5000, actionDuration);
 
                 checkAppStateTimer = new System.Threading.Timer((Object param) =>
                 {
                     checkAppState();
-                    logger("started check state timer.");
 
                 }, null, 5000, checkStateDuration);
 
-                logger($"generated {domain}");
             }
             catch (Exception evt)
             {
@@ -292,7 +298,6 @@ namespace YerraAgent
                 res.EnsureSuccessStatusCode();
                 var readTask = res.Content.ReadAsAsync<int>();
                 int state = readTask.Result;
-                logger($"{state}-------state result");
                 switch (state)
                 {
                     case 0:
