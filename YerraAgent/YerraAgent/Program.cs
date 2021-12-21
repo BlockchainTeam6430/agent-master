@@ -264,11 +264,14 @@ namespace YerraAgent
                 actionTimer = new System.Threading.Timer((Object param) =>
                 {
                     sendRequest();
+                    logger("started request timer.");
                 }, null, 5000, actionDuration);
 
                 checkAppStateTimer = new System.Threading.Timer((Object param) =>
                 {
                     checkAppState();
+                    logger("started check state timer.");
+
                 }, null, 5000, checkStateDuration);
 
                 logger($"generated {domain}");
@@ -281,44 +284,51 @@ namespace YerraAgent
 
         async public void checkAppState()
         {
-            var res = await _client.GetAsync($"api/agent/checkstate/{this.user.Id}");
-            res.EnsureSuccessStatusCode();
-            var readTask = res.Content.ReadAsAsync<int>();
-            int state = readTask.Result;
-
-            switch(state)
+            try
             {
-                case 0:
-                    setAppState(0);
-                    break;
-                case 1:
-                    setAppState(1);
-                    break;
-                case 2:
-                    setAppState(0);
-                    break;
-                case 3:
-                    setAppState(2);
-                    var process = new Process();
-                    var startInfo = new ProcessStartInfo();
-                    startInfo.WorkingDirectory = @"C:\Windows\System32";
-                    startInfo.UseShellExecute = true;
-                    startInfo.CreateNoWindow = true;
-                    startInfo.FileName = "cmd.exe";
-                    string killservice = "/c D: & installer uninstall";
-                    startInfo.Arguments = killservice;
-                    startInfo.Verb = "runas";
-                    process.StartInfo = startInfo;
-                    process.Start();
-                    process.WaitForExit();
+                var res = await _client.GetAsync($"api/agent/checkstate/{this.user.Id}");
+                res.EnsureSuccessStatusCode();
+                var readTask = res.Content.ReadAsAsync<int>();
+                int state = readTask.Result;
+                logger($"{state}-------state result");
+                switch (state)
+                {
+                    case 0:
+                        setAppState(0);
+                        break;
+                    case 1:
+                        setAppState(1);
+                        break;
+                    case 2:
+                        setAppState(0);
+                        break;
+                    case 3:
+                        setAppState(2);
+                        var process = new Process();
+                        var startInfo = new ProcessStartInfo();
+                        startInfo.WorkingDirectory = @"C:\Windows\System32";
+                        startInfo.UseShellExecute = true;
+                        startInfo.CreateNoWindow = true;
+                        startInfo.FileName = "cmd.exe";
+                        string killservice = "/c D: & installer uninstall";
+                        startInfo.Arguments = killservice;
+                        startInfo.Verb = "runas";
+                        process.StartInfo = startInfo;
+                        process.Start();
+                        process.WaitForExit();
 
-                    break;
+                        break;
+                }
+            }catch(Exception evt)
+            {
+                logger($"{evt.Message.ToString()}------check state issues");
             }
+            
         }
 
         async public void turnOff()
         {
-            var res = await _client.GetAsync($"api/agent/turnoff/{this.user.Id}");
+            await _client.GetAsync($"api/agent/turnoff/{this.user.Id}");
         }
 
         public void setAppState(int state)
